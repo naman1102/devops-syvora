@@ -1,6 +1,5 @@
 name: CI for Docker Image
 
-
 on:
   workflow_dispatch:
 
@@ -30,6 +29,7 @@ jobs:
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v4
       with:
-        context: "./DockerFile"
+        context: .
+        file: ./DockerFile
         push: true
         tags: devnaman/devops-syvora:${{ github.run_id }}
