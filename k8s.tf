@@ -10,7 +10,7 @@ resource "kubernetes_deployment" "devops-syvora" {
     labels = {
       test = "DevopsSyvora"
     }
-    namespace = "k8s-ns-by-tf"
+    namespace = kubernetes_namespace.devops-syvora.metadata[0].name
   }
 
   spec {
@@ -47,5 +47,33 @@ resource "kubernetes_deployment" "devops-syvora" {
         }
       }
     }
+  }
+}
+
+resource "kubernetes_service" "devops-syvora" {
+  metadata {
+    name      = "devops-syvora-service"
+    namespace = kubernetes_namespace.devops-syvora.metadata[0].name
+    labels = {
+      test = "DevopsSyvora"
+    }
+  }
+
+  spec {
+    selector = {
+      test = "DevopsSyvora"
+    }
+
+    port {
+      port        = 3000
+      target_port = 3000
+      protocol    = "TCP"
+    }
+
+    type = "NodePort"
+
+    #node_port = 30000 # Optional: Specify the exact NodePort
+    
+    external_traffic_policy = "Local" 
   }
 }
