@@ -32,4 +32,4 @@ jobs:
         context: .
         file: ./DockerFile
         push: true
-        tags: devnaman/devops-syvora:${{ github.run_id }}
+        tags: devnaman/devops-syvora:latest
