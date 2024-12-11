@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "devops-syvora.fullname" . }}-test-connection"
+  labels:
+    {{- include "devops-syvora.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['devops-syvora:3000']
+  restartPolicy: Never
