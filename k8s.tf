@@ -68,12 +68,11 @@ resource "kubernetes_service" "devops-syvora" {
       port        = 3000
       target_port = 3000
       protocol    = "TCP"
+      node_port   = 30000 # Optional: Specify the exact NodePort
     }
-
+    
     type = "NodePort"
 
-    #node_port = 30000 # Optional: Specify the exact NodePort
-    
     external_traffic_policy = "Local" 
   }
 }
